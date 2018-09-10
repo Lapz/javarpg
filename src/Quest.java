@@ -27,7 +27,7 @@ public class Quest {
             this.description = description;
         }
 
-        public Builder Item(Item item) {
+        public Builder rewards(Item item) {
             this.rewardItem = item;
             return this;
         }
@@ -42,8 +42,8 @@ public class Quest {
             return this;
         }
 
-        public Builder item(Item item,int qunatity) {
-            this.completionItems.put(item,qunatity);
+        public Builder requires(Item item,int quantity) {
+            this.completionItems.put(item,quantity);
             return this;
         }
 
