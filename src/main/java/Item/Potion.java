@@ -8,6 +8,10 @@ public class Potion extends Item {
         this.heals_by = heals_by;
     }
 
+    public int getHeals_by() {
+        return heals_by;
+    }
+
     public String toString() {
         return "A "+name+" which heals by "+heals_by;
     }

@@ -1,30 +1,38 @@
 import Item.Item;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import Item.Weapon;
 import Item.Potion;
 import Item.LootItem;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 
 public class World {
+
     public Map<Integer,Quest> quests;
     public Map<Integer,Location> locations;
     public Map<Integer,Monster> monsters;
     public Map<Integer, Item> items;
     public Map<String,Player> players;
 
+    private static ObjectMapper mapper = new ObjectMapper();
 
-  private static final int ITEM_ID_RUSTY_SWORD = 1;
-  private static final int ITEM_ID_RAT_TAIL = 2;
-  private static final int ITEM_ID_PIECE_OF_FUR = 3;
-  private static final int ITEM_ID_SNAKE_FANG = 4;
-  private static final int ITEM_ID_SNAKE_SKIN = 5;
-  private static final int ITEM_ID_CLUB = 6;
-  private static final int ITEM_ID_HEALING_POTION = 7;
-  private static final int ITEM_ID_SPIDER_FANG = 8;
-  private static final int ITEM_ID_SPIDER_SILK = 9;
-  private static final int ITEM_ID_ADVENTURER_PASS = 10;
+    //Items
+    private static final int ITEM_ID_RUSTY_SWORD = 1;
+    private static final int ITEM_ID_RAT_TAIL = 2;
+    private static final int ITEM_ID_PIECE_OF_FUR = 3;
+    private static final int ITEM_ID_SNAKE_FANG = 4;
+    private static final int ITEM_ID_SNAKE_SKIN = 5;
+    private static final int ITEM_ID_CLUB = 6;
+    private static final int ITEM_ID_HEALING_POTION = 7;
+    private static final int ITEM_ID_SPIDER_FANG = 8;
+    private static final int ITEM_ID_SPIDER_SILK = 9;
+    private static final int ITEM_ID_ADVENTURER_PASS = 10;
 
 // Monsters
   private static final int MONSTER_ID_RAT = 1;
@@ -53,6 +61,7 @@ public class World {
         this.items = new HashMap<Integer, Item>();
         this.players = new HashMap <String, Player>();
 
+        this.loadPlayers();
         this.addItems();
         this.addQuests();
         this.addMonster();
@@ -63,8 +72,36 @@ public class World {
        return players.containsKey(id);
     }
 
+    public void loadPlayers() {
+
+        try {
+            HashMap<String,Player> players = mapper.readValue(new File("./players.json"),
+                    new TypeReference<Map<String, Player>>() { });
+            this.players = players;
+        }catch (IOException e){
+            System.out.println("Couldn't load previous players");
+        }
+
+    }
+
+    public void savePlayers() {
+        try {
+            this.mapper.writeValue(new File("./players.json"),players);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public void addPlayer(String id) {
         players.put(id,new Player(id,this.locations.get(LOCATION_ID_HOME)));
+    }
+
+    public String playerInfo(String id) {
+        Player player = this.players.get(id);
+
+        String info = new Player.InfoBuilder(player.getName(),player.getLevel(),player.getHp(),player.getXp(),player.getGold()).build();
+        return info;
     }
 
 

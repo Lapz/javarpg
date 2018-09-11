@@ -1,36 +1,75 @@
 import Item.Item;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Location {
     private int id;
     private String name;
     private Item itemNeededToEnter;
     private Quest avaiableQuest;
     private Monster monster;
-    private Location locationToNorth;
-    private Location locationToEast ;
-    private Location locationToSouth;
-    private Location locationToWest;
+    private List<Location> locations;
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Item getItemNeededToEnter() {
+        return itemNeededToEnter;
+    }
+
+    public Quest getAvailableQuest() {
+        return avaiableQuest;
+    }
+
+    public Monster getMonster() {
+        return monster;
+    }
+
+    public List<Location> getLocations() {
+        return locations;
+    }
+
+    public Location getLocationToNorth() {
+        return this.locations.get(0);
+    }
+
+    public Location getLocationToEast() {
+        return this.locations.get(1);
+    }
+
+    public Location getLocationToSouth() {
+        return this.locations.get(2);
+    }
+
+    public Location getLocationToWest() {
+        return this.locations.get(3);
+    }
 
 
     public Location north(Location location) {
-
-        this.locationToNorth = location;
+        this.locations.add(0,location);
         return this;
     }
 
     public Location east(Location location) {
 
-        this.locationToEast = location;
+        this.locations.add(1,location);
         return this;
     }
 
     public Location south(Location location) {
-        this.locationToSouth = location;
+        this.locations.add(2,location);
         return this;
     }
 
     public Location west(Location location) {
-        this.locationToWest = location;
+        this.locations.add(3,location);
         return this;
     }
 
@@ -42,10 +81,6 @@ public class Location {
         private Item itemNeededToEnter;
         private Quest avaiableQuest;
         private Monster monster;
-        private Location locationToNorth;
-        private Location locationToEast ;
-        private Location locationToSouth;
-        private Location locationToWest;
 
 
         public Builder(int id,String name) {
@@ -77,6 +112,12 @@ public class Location {
             location.avaiableQuest = this.avaiableQuest;
             location.itemNeededToEnter = this.itemNeededToEnter;
             location.monster = this.monster;
+            ArrayList<Location> locations = new ArrayList<Location>();
+            locations.add(0,null);
+            locations.add(1,null);
+            locations.add(2,null);
+            locations.add(3,null);
+            location.locations = locations;
             return location;
 
         }

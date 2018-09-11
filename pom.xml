@@ -8,6 +8,14 @@
     <artifactId>Java</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <properties>
+
+        <!-- Use the latest version whenever possible. -->
+        <jackson.version>2.9.5</jackson.version>
+
+    </properties>
+
+
     <repositories>
         <repository>
             <id>jcenter</id>
@@ -17,6 +25,7 @@
     </repositories>
 
     <dependencies>
+
         <dependency>
             <groupId>net.dv8tion</groupId>
             <artifactId>JDA</artifactId>
@@ -28,6 +37,28 @@
             <artifactId>java-dotenv</artifactId>
             <version>3.1.2</version>
         </dependency>
+
+
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+        <dependency>
+            <!-- Note: core-annotations version x.y.0 is generally compatible with
+                 (identical to) version x.y.1, x.y.2, etc. -->
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
     </dependencies>
 
     

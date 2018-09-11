@@ -10,6 +10,14 @@ public class Weapon extends Item {
         this.maxDmg = maxDmg;
     }
 
+    public int getMinDmg() {
+        return minDmg;
+    }
+
+    public int getMaxDmg() {
+        return maxDmg;
+    }
+
     public String toString() {
        return "A "+name+" which does between "+minDmg+" and "+maxDmg+" damage";
     }

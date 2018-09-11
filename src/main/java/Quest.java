@@ -8,6 +8,35 @@ public class Quest {
     public String name;
     public String description;
     public Item rewardItem;
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Item getRewardItem() {
+        return rewardItem;
+    }
+
+    public int getRewardXP() {
+        return rewardXP;
+    }
+
+    public int getRewardGold() {
+        return rewardGold;
+    }
+
+    public Map<Item, Integer> getCompletionItems() {
+        return completionItems;
+    }
+
     public int rewardXP;
     public int rewardGold;
     public Map<Item,Integer> completionItems;

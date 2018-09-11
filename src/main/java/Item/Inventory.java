@@ -7,6 +7,10 @@ public class Inventory {
     // Item and qunatiy
     private Map<Item,Integer> items;
 
+    public Map<Item, Integer> getItems() {
+        return items;
+    }
+
     public Inventory(Item... initialItems) {
 
         this.items = new HashMap<Item, Integer>();

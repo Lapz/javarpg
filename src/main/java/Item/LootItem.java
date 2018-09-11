@@ -4,7 +4,15 @@ public class LootItem extends Item {
     private int dropPrecentage;
     private boolean defaultItem;
 
-    public LootItem(Item item,int percentage,boolean b) {
+    public int getDropPrecentage() {
+        return dropPrecentage;
+    }
+
+    public boolean isDefaultItem() {
+        return defaultItem;
+    }
+
+    public LootItem(Item item, int percentage, boolean b) {
         super(item.name,item.id);
         this.dropPrecentage = percentage;
         this.defaultItem = b;

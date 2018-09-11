@@ -12,7 +12,39 @@ public class Monster {
     private int rewardGold;
     private ArrayList<LootItem> lootTable;
 
-    public Monster(int id,String name,int maxHP,int maxDamage,int rewardGold,int rewardXP) {
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getHp() {
+        return hp;
+    }
+
+    public int getMaxHP() {
+        return maxHP;
+    }
+
+    public int getMaxDamage() {
+        return maxDamage;
+    }
+
+    public int getRewardXP() {
+        return rewardXP;
+    }
+
+    public int getRewardGold() {
+        return rewardGold;
+    }
+
+    public ArrayList<LootItem> getLootTable() {
+        return lootTable;
+    }
+
+    public Monster(int id, String name, int maxHP, int maxDamage, int rewardGold, int rewardXP) {
         this.id = id;
         this.name = name;
         this.hp = maxHP;
