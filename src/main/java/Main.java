@@ -29,7 +29,6 @@ public class Main extends ListenerAdapter {
 
         System.out.println(token);
 
-
     }
 
     @Override

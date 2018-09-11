@@ -1,6 +1,5 @@
 import Item.Inventory;
 import Item.Item;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,7 +7,6 @@ public class Player {
 
 
     private String name;
-    @JsonIgnore
     private Location currentLocation;
     private int hp;
     private int max_hp;

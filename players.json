@@ -1,1 +1,1 @@
-{"L.apz":{"name":"L.apz","hp":10,"max_hp":10,"gold":0,"xp":0,"level":0,"inventory":{"items":{}},"quests":{},"alive":true}}
+{"L.apz":{"name":"L.apz","currentLocation":{"id":1,"name":"Home","itemNeededToEnter":null,"monster":null,"locations":[2,null,null,null,null],"availableQuest":null,"locationToNorth":2,"locationToEast":null,"locationToSouth":null,"locationToWest":null},"hp":10,"max_hp":10,"gold":0,"xp":0,"level":0,"inventory":{"items":{}},"quests":{},"alive":true}}

@@ -11,7 +11,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
-
 public class World {
 
     public Map<Integer,Quest> quests;
@@ -123,64 +122,45 @@ public class World {
     private void addLocations() {
 
         Location home = new Location.Builder(LOCATION_ID_HOME,"Home")
+                .north(LOCATION_ID_TOWN_SQUARE)
                 .build();
         Location townSquare = new Location.Builder(LOCATION_ID_TOWN_SQUARE,"Town square")
+                .north(LOCATION_ID_ALCHEMIST_HUT)
+                .east(LOCATION_ID_GUARD_POST)
+                .south(LOCATION_ID_HOME)
+                .west(LOCATION_ID_FARMHOUSE)
                 .build();
         Location alchemistHut = new Location.Builder(LOCATION_ID_ALCHEMIST_HUT,"Alchemis'ts hut")
+                .south(LOCATION_ID_TOWN_SQUARE)
+                .north(LOCATION_ID_ALCHEMISTS_GARDEN)
                 .quest(quests.get(QUEST_ID_CLEAR_ALCHEMIST_GARDEN))
                 .build();
         Location alchemistsGarden = new Location.Builder(LOCATION_ID_ALCHEMISTS_GARDEN,"Alchemist's garden")
+                .south(LOCATION_ID_ALCHEMIST_HUT)
                 .monster(monsters.get(MONSTER_ID_RAT))
                 .build();
         Location farmHouse = new Location.Builder(LOCATION_ID_FARMHOUSE,"Farmhouse")
+                .east(LOCATION_ID_TOWN_SQUARE)
+                .west(QUEST_ID_CLEAR_FARMERS_FIELD)
                 .quest(quests.get(QUEST_ID_CLEAR_FARMERS_FIELD))
                 .build();
-        Location farmersFeild = new Location.Builder(LOCATION_ID_FARM_FIELD,"Farmer's field")
+        Location farmersField = new Location.Builder(LOCATION_ID_FARM_FIELD,"Farmer's field")
+                .east(LOCATION_ID_FARMHOUSE)
                 .monster(monsters.get(MONSTER_ID_SNAKE))
                 .build();
         Location guardPost = new Location.Builder(LOCATION_ID_GUARD_POST,"Guard post")
+                .east(LOCATION_ID_BRIDGE)
+                .west(LOCATION_ID_TOWN_SQUARE)
                 .requires(items.get(ITEM_ID_ADVENTURER_PASS))
                 .build();
         Location bridge = new Location.Builder(LOCATION_ID_BRIDGE,"Bridge")
+                .west(LOCATION_ID_GUARD_POST)
+                .east(LOCATION_ID_SPIDER_FIELD)
                 .build();
         Location spiderField = new Location.Builder(LOCATION_ID_SPIDER_FIELD,"Forest")
+                .west(LOCATION_ID_BRIDGE)
                 .monster(monsters.get(MONSTER_ID_GIANT_SPIDER))
                 .build();
-
-        home
-                .north(townSquare);
-
-        townSquare
-                .north(alchemistHut)
-                .east(guardPost)
-                .south(home)
-                .west(farmHouse);
-
-        farmHouse
-                .east(townSquare)
-                .west(farmersFeild);
-
-        farmersFeild
-                .east(farmHouse);
-
-        alchemistHut
-                .south(townSquare)
-                .north(alchemistsGarden);
-
-        alchemistsGarden
-                .south(alchemistHut);
-
-        guardPost
-                .east(bridge)
-                .west(townSquare);
-
-        bridge
-                .west(guardPost)
-                .east(spiderField);
-
-        spiderField
-                .west(bridge);
-
 
         this.locations.put(LOCATION_ID_HOME,home);
         this.locations.put(LOCATION_ID_TOWN_SQUARE,townSquare);
@@ -188,7 +168,7 @@ public class World {
         this.locations.put(LOCATION_ID_ALCHEMIST_HUT,alchemistHut);
         this.locations.put(LOCATION_ID_ALCHEMISTS_GARDEN,alchemistsGarden);
         this.locations.put(LOCATION_ID_FARMHOUSE,farmHouse);
-        this.locations.put(LOCATION_ID_FARM_FIELD,farmersFeild);
+        this.locations.put(LOCATION_ID_FARM_FIELD,farmersField);
         this.locations.put(LOCATION_ID_BRIDGE,bridge);
         this.locations.put(LOCATION_ID_SPIDER_FIELD,spiderField);
     }

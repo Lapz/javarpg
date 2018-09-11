@@ -9,7 +9,7 @@ public class Location {
     private Item itemNeededToEnter;
     private Quest avaiableQuest;
     private Monster monster;
-    private List<Location> locations;
+    private List<Integer> locations;
 
     public int getId() {
         return id;
@@ -31,47 +31,28 @@ public class Location {
         return monster;
     }
 
-    public List<Location> getLocations() {
+    public List<Integer> getLocations() {
         return locations;
     }
 
-    public Location getLocationToNorth() {
+    public Integer getLocationToNorth() {
         return this.locations.get(0);
     }
 
-    public Location getLocationToEast() {
+    public Integer getLocationToEast() {
         return this.locations.get(1);
     }
 
-    public Location getLocationToSouth() {
+    public Integer getLocationToSouth() {
         return this.locations.get(2);
     }
 
-    public Location getLocationToWest() {
+    public Integer getLocationToWest() {
         return this.locations.get(3);
     }
 
 
-    public Location north(Location location) {
-        this.locations.add(0,location);
-        return this;
-    }
 
-    public Location east(Location location) {
-
-        this.locations.add(1,location);
-        return this;
-    }
-
-    public Location south(Location location) {
-        this.locations.add(2,location);
-        return this;
-    }
-
-    public Location west(Location location) {
-        this.locations.add(3,location);
-        return this;
-    }
 
 
 
@@ -81,11 +62,19 @@ public class Location {
         private Item itemNeededToEnter;
         private Quest avaiableQuest;
         private Monster monster;
+        private List<Integer> locations;
 
 
         public Builder(int id,String name) {
             this.id = id;
             this.name = name;
+            ArrayList<Integer> locations = new ArrayList<Integer>();
+            locations.add(0,null);
+            locations.add(1,null);
+            locations.add(2,null);
+            locations.add(3,null);
+            this.locations = locations;
+
         }
 
         public Builder requires(Item item) {
@@ -104,6 +93,27 @@ public class Location {
             return this;
         }
 
+        public Builder north(Integer location) {
+            this.locations.add(0,location);
+            return this;
+        }
+
+        public Builder east(Integer location) {
+
+            this.locations.add(1,location);
+            return this;
+        }
+
+        public Builder south(Integer location) {
+            this.locations.add(2,location);
+            return this;
+        }
+
+        public Builder west(Integer location) {
+            this.locations.add(3,location);
+            return this;
+        }
+
         public Location build() {
 
             Location location = new Location();
@@ -112,12 +122,7 @@ public class Location {
             location.avaiableQuest = this.avaiableQuest;
             location.itemNeededToEnter = this.itemNeededToEnter;
             location.monster = this.monster;
-            ArrayList<Location> locations = new ArrayList<Location>();
-            locations.add(0,null);
-            locations.add(1,null);
-            locations.add(2,null);
-            locations.add(3,null);
-            location.locations = locations;
+            location.locations = this.locations;
             return location;
 
         }
