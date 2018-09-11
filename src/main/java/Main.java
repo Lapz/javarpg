@@ -27,8 +27,6 @@ public class Main extends ListenerAdapter {
         builder.addEventListener(new Main());
         builder.buildBlocking();
 
-        System.out.println(token);
-
     }
 
     @Override
@@ -36,8 +34,16 @@ public class Main extends ListenerAdapter {
         System.out.println("Message received from "+event.getAuthor().getName());
         String player = event.getAuthor().getName();
 
-        if (event.getMessage().getContentRaw().equals("!add")) {
+        if (event.getAuthor().isBot()) {
+            return;
+        }
 
+        if (event.getMessage().getContentRaw().startsWith("!") && !world.hasPlayer(player)) {
+            event.getChannel().sendMessage(player +" is not registered").queue();
+            return;
+        }
+
+        if (event.getMessage().getContentRaw().equals("!add")) {
 
             if (world.hasPlayer(player)) {
                 event.getChannel().sendMessage(player +" is already registered").queue();
@@ -46,12 +52,22 @@ public class Main extends ListenerAdapter {
                 event.getChannel().sendMessage("Added "+player+" to the game").queue();
                 world.savePlayers();
             }
-        } else  if (event.getMessage().getContentRaw().equals("!info")) {
-            if (world.hasPlayer(player)) {
+
+        } else if (event.getMessage().getContentRaw().equals("!info")) {
+
                 event.getChannel().sendMessage(world.playerInfo(player)).queue();
-            }else {
-                event.getChannel().sendMessage(player +" is not registered").queue();
-            }
+
+        } else if (event.getMessage().getContentRaw().equals("!inventory")) {
+
+                event.getChannel().sendMessage(world.playerInfo(player)).queue();
+
+        } else if (event.getMessage().getContentRaw().equals("!move")) {
+
+                event.getChannel().sendMessage(world.playerInfo(player)).queue();
+
+        } else if (event.getMessage().getContentRaw().startsWith("!")){
+
+            event.getChannel().sendMessage(String.format("The command ```%s``` is unrecognized",event.getMessage().getContentRaw())).queue();
         }
 
 

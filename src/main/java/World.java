@@ -1,14 +1,27 @@
 import Item.Item;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import Item.Weapon;
 import Item.Potion;
 import Item.LootItem;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.KeyDeserializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 
 
 public class World {
@@ -19,7 +32,7 @@ public class World {
     public Map<Integer, Item> items;
     public Map<String,Player> players;
 
-    private static ObjectMapper mapper = new ObjectMapper();
+    private static Gson gson = new GsonBuilder().setPrettyPrinting().serializeNulls().create();
 
     //Items
     private static final int ITEM_ID_RUSTY_SWORD = 1;
@@ -74,18 +87,28 @@ public class World {
     public void loadPlayers() {
 
         try {
-            HashMap<String,Player> players = mapper.readValue(new File("./players.json"),
-                    new TypeReference<Map<String, Player>>() { });
+            String json = new String(Files.readAllBytes(new File("./players.json").toPath()));
+
+            Type player = new TypeToken<HashMap<String,Player>>() {}.getType();
+
+            HashMap<String,Player> players = gson.fromJson(json,player);
+
             this.players = players;
-        }catch (IOException e){
-            System.out.println("Couldn't load previous players");
+        } catch (IOException e) {
+            System.out.println("Couldn't open the json file of previous players");
+            e.printStackTrace();
+        } catch (JsonSyntaxException e){
+            System.out.println("Couldn't parse the json file of previous players");
+            e.printStackTrace();
         }
 
     }
 
     public void savePlayers() {
         try {
-            this.mapper.writeValue(new File("./players.json"),players);
+            BufferedWriter writer = new BufferedWriter( new FileWriter("./players.json"));
+            writer.write(gson.toJson(this.players));
+            writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -237,5 +260,10 @@ public class World {
     }
 
 
-
+    public class IntegerKeyDeserializer extends KeyDeserializer {
+        @Override
+        public Object deserializeKey(final String key, final DeserializationContext ctxt ) throws IOException, JsonProcessingException {
+            return null;
+        }
+    }
 }
