@@ -22,6 +22,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
+import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.entities.MessageEmbed;
 
 
 public class World {
@@ -33,7 +35,6 @@ public class World {
     public Map<String,Player> players;
 
     private static Gson gson = new GsonBuilder().setPrettyPrinting().serializeNulls().create();
-
     //Items
     private static final int ITEM_ID_RUSTY_SWORD = 1;
     private static final int ITEM_ID_RAT_TAIL = 2;
@@ -93,7 +94,12 @@ public class World {
 
             HashMap<String,Player> players = gson.fromJson(json,player);
 
-            this.players = players;
+
+            if (!(players == null)) {
+                this.players = players;
+            }
+
+
         } catch (IOException e) {
             System.out.println("Couldn't open the json file of previous players");
             e.printStackTrace();
@@ -115,8 +121,12 @@ public class World {
 
     }
 
+    public Player getPlayer(String id) {
+        return this.players.get(id);
+    }
+
     public void addPlayer(String id) {
-        players.put(id,new Player(id,this.locations.get(LOCATION_ID_HOME)));
+        players.put(id,new Player(id,this.locations.get(LOCATION_ID_HOME),this.items.get(ITEM_ID_RUSTY_SWORD),this.items.get(ITEM_ID_HEALING_POTION)));
     }
 
     public String playerInfo(String id) {
@@ -153,10 +163,10 @@ public class World {
                 .south(LOCATION_ID_HOME)
                 .west(LOCATION_ID_FARMHOUSE)
                 .build();
-        Location alchemistHut = new Location.Builder(LOCATION_ID_ALCHEMIST_HUT,"Alchemis'ts hut")
+        Location alchemistHut = new Location.Builder(LOCATION_ID_ALCHEMIST_HUT,"Alchemists hut")
                 .south(LOCATION_ID_TOWN_SQUARE)
                 .north(LOCATION_ID_ALCHEMISTS_GARDEN)
-                .quest(quests.get(QUEST_ID_CLEAR_ALCHEMIST_GARDEN))
+                .quest(this.quests.get(QUEST_ID_CLEAR_ALCHEMIST_GARDEN))
                 .build();
         Location alchemistsGarden = new Location.Builder(LOCATION_ID_ALCHEMISTS_GARDEN,"Alchemist's garden")
                 .south(LOCATION_ID_ALCHEMIST_HUT)
@@ -259,11 +269,23 @@ public class World {
         this.quests.put(QUEST_ID_CLEAR_FARMERS_FIELD,clearFarmersField);
     }
 
+    public Location getLocation(int id) {
+        return locations.get(id);
+    }
 
-    public class IntegerKeyDeserializer extends KeyDeserializer {
-        @Override
-        public Object deserializeKey(final String key, final DeserializationContext ctxt ) throws IOException, JsonProcessingException {
-            return null;
+    public MessageEmbed embeddedLocationMessage() {
+        EmbedBuilder em = new EmbedBuilder();
+        em.setTitle("Locations");
+
+        for (Map.Entry<Integer,Location> entry:locations.entrySet()) {
+            String name = String.format("%s",entry.getValue().getName());
+            String value = String.format("ID:%d\n\tAvailable quest:%s\n\tRequires:%s",entry.getValue().getId(),
+                    (entry.getValue().getAvailableQuest() == null ? "None"  :entry.getValue().getAvailableQuest().getName()),
+                    (entry.getValue().getItemNeededToEnter() == null ? "Nothing"  :entry.getValue().getItemNeededToEnter().getName())
+            );
+            em.addField(name,value,false);
         }
+
+        return  em.build();
     }
 }

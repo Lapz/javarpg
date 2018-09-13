@@ -94,7 +94,7 @@ public class Player {
         this.quests = quests;
     }
 
-    public Player(String name, Location location) {
+    public Player(String name, Location location,Item...items) {
         this.name = name;
         this.currentLocation = location;
         this.hp = 10;
@@ -102,7 +102,7 @@ public class Player {
         this.gold = 0;
         this.xp = 0;
         this.level = 0;
-        this.inventory = new Inventory();
+        this.inventory = new Inventory(items);
         this.quests = new HashMap <Integer, Quest>();
     }
 
@@ -122,8 +122,8 @@ public class Player {
         }
     }
 
-    public boolean hasItem(int id) {
-        return inventory.containsValue(id);
+    public boolean hasItem(Item item) {
+        return inventory.containsValue(item);
     }
 
     public boolean hasQuest(int id) {

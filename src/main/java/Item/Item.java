@@ -1,11 +1,20 @@
 package Item;
 
 public class Item {
-    public String name;
-    public int id;
+    public final String name;
+    public final int id;
+    public int quantity = 1;
 
     public String getName() {
         return name;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public int getQuantity() {
+        return quantity;
     }
 
     public int getId() {
@@ -15,5 +24,6 @@ public class Item {
     public Item(String name, int id) {
         this.name = name;
         this.id = id;
+
     }
 }

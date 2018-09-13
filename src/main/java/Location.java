@@ -52,10 +52,6 @@ public class Location {
     }
 
 
-
-
-
-
     public static class Builder {
         private int id;
         private String name;

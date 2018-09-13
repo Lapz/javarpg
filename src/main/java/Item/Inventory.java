@@ -1,41 +1,50 @@
 package Item;
 
-import java.util.HashMap;
+import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.entities.MessageEmbed;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class Inventory {
-    // Item and qunatiy
-    private Map<Item,Integer> items;
 
-    public Map<Item, Integer> getItems() {
+    private List<Item> items;
+
+    public List<Item> getItems() {
         return items;
     }
 
     public Inventory(Item... initialItems) {
 
-        this.items = new HashMap<Item, Integer>();
+        this.items = new ArrayList<Item>();
         for (Item item : initialItems) {
-            this.items.put(item,1);
+            item.setQuantity(1);
+            this.items.add(item);
         }
     }
 
+    public boolean containsValue(Item item) {
 
-    public boolean containsValue(int id) {
-        return this.items.containsValue(id);
+        return this.items.contains(item);
     }
 
     public void addItem(Item item,int quantity) {
-        this.items.put(item,quantity);
+        this.items.add(item);
     }
 
 
-    public String toString() {
-        String debug_repr = "Item\tQuantity";
+    public MessageEmbed embeddedMessage() {
+        EmbedBuilder em = new EmbedBuilder();
+        em.setTitle("Inventory:");
 
-        for (Map.Entry<Item,Integer> entry: items.entrySet()) {
-            debug_repr +=  "\n"+entry.getKey()+"\t"+entry.getValue();
+
+        for (Item entry: items) {
+
+                em.addField(""+entry.getName(),String.format("ID:%d\tQuantity",entry.getId(),entry.getQuantity()),false);
         }
 
-        return debug_repr;
+
+        return em.build();
     }
 }

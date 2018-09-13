@@ -1,8 +1,8 @@
 package Item;
 
 public class LootItem extends Item {
-    private int dropPrecentage;
-    private boolean defaultItem;
+    private final int dropPrecentage;
+    private final boolean defaultItem;
 
     public int getDropPrecentage() {
         return dropPrecentage;
@@ -18,8 +18,4 @@ public class LootItem extends Item {
         this.defaultItem = b;
     }
 
-
-    public String toString() {
-        return this.name;
-    }
 }

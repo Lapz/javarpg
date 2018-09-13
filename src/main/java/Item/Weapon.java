@@ -18,7 +18,7 @@ public class Weapon extends Item {
         return maxDmg;
     }
 
-    public String toString() {
-       return "A "+name+" which does between "+minDmg+" and "+maxDmg+" damage";
-    }
+//    public String toString() {
+//       return "Name:"+name+" Id:"+id+" minDmg:"+minDmg+" maxDmg:"+maxDmg;
+//    }
 }

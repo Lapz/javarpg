@@ -1,66 +1,17 @@
 {
-  "___Antz___": {
-    "name": "___Antz___",
-    "currentLocation": {
-      "id": 1,
-      "name": "Home",
-      "itemNeededToEnter": null,
-      "avaiableQuest": null,
-      "monster": null,
-      "locations": [
-        2,
-        null,
-        null,
-        null,
-        null
-      ]
-    },
-    "hp": 10,
-    "max_hp": 10,
-    "gold": 0,
-    "xp": 0,
-    "level": 0,
-    "inventory": {
-      "items": {}
-    },
-    "quests": {}
-  },
-  "B.apz": {
-    "name": "L.apz",
-    "currentLocation": {
-      "id": 1,
-      "name": "Home",
-      "itemNeededToEnter": null,
-      "avaiableQuest": null,
-      "monster": null,
-      "locations": [
-        2,
-        null,
-        null,
-        null,
-        null
-      ]
-    },
-    "hp": 10,
-    "max_hp": 10,
-    "gold": 0,
-    "xp": 0,
-    "level": 0,
-    "inventory": {
-      "items": {}
-    },
-    "quests": {}
-  },
   "L.apz": {
     "name": "L.apz",
     "currentLocation": {
-      "id": 1,
-      "name": "Home",
+      "id": 2,
+      "name": "Town square",
       "itemNeededToEnter": null,
       "avaiableQuest": null,
       "monster": null,
       "locations": [
-        2,
+        4,
+        3,
+        1,
+        6,
         null,
         null,
         null,
@@ -73,7 +24,18 @@
     "xp": 0,
     "level": 0,
     "inventory": {
-      "items": {}
+      "items": [
+        {
+          "name": "Rusty Sword",
+          "id": 1,
+          "quantity": 1
+        },
+        {
+          "name": "Healing Potion",
+          "id": 7,
+          "quantity": 1
+        }
+      ]
     },
     "quests": {}
   }

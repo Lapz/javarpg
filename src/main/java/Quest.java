@@ -82,6 +82,7 @@ public class Quest {
         public Quest build() {
             Quest quest = new Quest();
             quest.id = this.id;
+            quest.name = this.name;
             quest.description = this.description;
             quest.rewardGold = this.rewardGold;
             quest.rewardXP = this.rewardXP;
