@@ -132,7 +132,8 @@ public class World {
     public String playerInfo(String id) {
         Player player = this.players.get(id);
 
-        String info = new Player.InfoBuilder(player.getName(),player.getLevel(),player.getHp(),player.getXp(),player.getGold()).build();
+        String info = new Player.InfoBuilder(player.getName(),player.getLevel(),player.getHp()
+                ,player.getXp(),player.getGold(),player.getCurrentLocation()).build();
         return info;
     }
 
@@ -150,6 +151,10 @@ public class World {
         this.items.put(ITEM_ID_SPIDER_SILK, new Item("Spider silk",ITEM_ID_SPIDER_SILK));
         this.items.put(ITEM_ID_HEALING_POTION,new Potion("Healing Potion",ITEM_ID_HEALING_POTION,5));
         this.items.put(ITEM_ID_ADVENTURER_PASS,new Item("Adventure's pass",ITEM_ID_ADVENTURER_PASS));
+    }
+
+    public Map<Integer, Location> getLocations() {
+        return locations;
     }
 
     private void addLocations() {

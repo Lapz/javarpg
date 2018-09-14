@@ -3,6 +3,8 @@ import Item.Item;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.KeyDeserializer;
+import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.entities.MessageEmbed;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -143,14 +145,16 @@ public class Player {
         private int level;
         private Inventory inventory;
         private Map<Integer,Quest> quests;
+        private Location currentLocation;
 
 
-        public InfoBuilder(String name, int level,int hp,int gold, int xp) {
+        public InfoBuilder(String name, int level,int hp,int gold, int xp,Location location) {
             this.name =name;
             this.level =level;
             this.hp = hp;
             this.gold = gold;
             this.xp = xp;
+            this.currentLocation = location;
 
         }
 
@@ -178,9 +182,23 @@ public class Player {
                 info = info + this.quests.toString()+"\n";
             }
 
+            info = info+"Your current locations is `"+this.currentLocation.getName()+"`";
+
             return info;
 
         }
+    }
+
+
+    public MessageEmbed embeddedInfoMessage() {
+        EmbedBuilder em = new EmbedBuilder();
+        em.addField("Name:",this.name,true);
+        em.addField("Level",""+this.level,true);
+        em.addField("Gold",""+this.gold,true);
+        em.addField("XP",""+this.xp,true);
+        em.addField("Current Location",this.currentLocation.getName(),true);
+
+        return  em.build();
     }
 
 

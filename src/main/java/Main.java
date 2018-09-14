@@ -26,7 +26,7 @@ public class Main extends ListenerAdapter {
 
         builder.setToken(token);
         builder.addEventListener(new Main());
-        builder.buildBlocking();
+        builder.buildAsync();
 
     }
 
@@ -52,7 +52,7 @@ public class Main extends ListenerAdapter {
             }
         } else if (event.getMessage().getContentRaw().equals("!info")) {
 
-                event.getChannel().sendMessage(world.playerInfo(player)).queue();
+                event.getChannel().sendMessage(world.getPlayer(player).embeddedInfoMessage()).queue();
 
         } else if (event.getMessage().getContentRaw().equals("!inventory")) {
 
@@ -60,13 +60,13 @@ public class Main extends ListenerAdapter {
 
         } else if (event.getMessage().getContentRaw().equals("!locations") || event.getMessage().getContentRaw().equals("!l") ) {
 
-                event.getChannel().sendMessage(world.embeddedLocationMessage()).queue();
+                event.getChannel().sendMessage( world.getPlayer(player).getCurrentLocation().embeddedLocationsMessage(world.getLocations())).queue();
 
         } else if (event.getMessage().getContentRaw().equals("!move") || event.getMessage().getContentRaw().equals("!m") ) {
 
             event.getChannel().sendMessage("The location ID is needed when moving. You can find it by using the `!location` or `!l` command").queue();
 
-        }else if (event.getMessage().getContentRaw().startsWith("!move") || event.getMessage().getContentRaw().startsWith("!m")) {
+        } else if (event.getMessage().getContentRaw().startsWith("!move") || event.getMessage().getContentRaw().startsWith("!m")) {
             String[] segements = event.getMessage().getContentRaw().split(" ");
 
 
@@ -93,6 +93,19 @@ public class Main extends ListenerAdapter {
                         }
                     }
 
+
+                    Location currentPlayerLoc = world.getPlayer(player).getCurrentLocation();
+
+
+                    if (!currentPlayerLoc.getLocations().contains(loc.getId())) {
+
+                        event.getChannel().sendMessage("You cannot move to `"+loc.getName()+"` but can " +
+                                "instead move to the following locations").queue();
+                        event.getChannel().sendMessage(currentPlayerLoc.embeddedLocationsMessage(world.getLocations())).queue();
+                        return;
+
+                    }
+
                     world.getPlayer(player).setCurrentLocation(loc);
                     event.getChannel().sendMessage("You have moved to `"+loc.getName()+"`").queue();
                 }
@@ -101,8 +114,7 @@ public class Main extends ListenerAdapter {
                 event.getChannel().sendMessage("`"+segements[1]+"` is not a valid argument for the command `!move` ").queue();
             }
 
-        }
-        else if (event.getMessage().getContentRaw().startsWith("!")){
+        } else if (event.getMessage().getContentRaw().startsWith("!")){
 
             event.getChannel().sendMessage(String.format("The command `%s` is unrecognized",event.getMessage().getContentRaw())).queue();
         }else if (event.getMessage().getContentRaw().startsWith("!") && !(world.hasPlayer(player))) {

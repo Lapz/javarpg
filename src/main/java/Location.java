@@ -1,7 +1,10 @@
 import Item.Item;
+import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.entities.MessageEmbed;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Location {
     private int id;
@@ -51,12 +54,30 @@ public class Location {
         return this.locations.get(3);
     }
 
+    public MessageEmbed embeddedLocationsMessage(Map<Integer,Location> locations) {
+        EmbedBuilder em = new EmbedBuilder();
+
+        em.setTitle("Locations to travel to :");
+
+        for (Integer id:this.locations) {
+
+            String value = String.format("ID:%d\n\tAvailable quest:%s\n\tRequires:%s",id,
+                    (locations.get(id).getAvailableQuest() == null ? "None"  :locations.get(id).getAvailableQuest().getName()),
+                    (locations.get(id).getItemNeededToEnter() == null ? "Nothing"  :locations.get(id).getItemNeededToEnter().getName())
+            );
+
+            em.addField(locations.get(id).getName(),value,false);
+        }
+
+        return  em.build();
+    }
+
 
     public static class Builder {
         private int id;
         private String name;
         private Item itemNeededToEnter;
-        private Quest avaiableQuest;
+        private Quest availableQuest;
         private Monster monster;
         private List<Integer> locations;
 
@@ -64,11 +85,7 @@ public class Location {
         public Builder(int id,String name) {
             this.id = id;
             this.name = name;
-            ArrayList<Integer> locations = new ArrayList<Integer>();
-            locations.add(0,null);
-            locations.add(1,null);
-            locations.add(2,null);
-            locations.add(3,null);
+            ArrayList<Integer> locations = new ArrayList<Integer>(4);
             this.locations = locations;
 
         }
@@ -79,7 +96,7 @@ public class Location {
         }
 
         public Builder quest(Quest quest) {
-            this.avaiableQuest= quest;
+            this.availableQuest = quest;
             return this;
         }
 
@@ -90,23 +107,23 @@ public class Location {
         }
 
         public Builder north(Integer location) {
-            this.locations.add(0,location);
+            this.locations.add(location);
             return this;
         }
 
         public Builder east(Integer location) {
 
-            this.locations.add(1,location);
+            this.locations.add(location);
             return this;
         }
 
         public Builder south(Integer location) {
-            this.locations.add(2,location);
+            this.locations.add(location);
             return this;
         }
 
         public Builder west(Integer location) {
-            this.locations.add(3,location);
+            this.locations.add(location);
             return this;
         }
 
@@ -115,7 +132,7 @@ public class Location {
             Location location = new Location();
             location.name = this.name;
             location.id = this.id;
-            location.avaiableQuest = this.avaiableQuest;
+            location.avaiableQuest = this.availableQuest;
             location.itemNeededToEnter = this.itemNeededToEnter;
             location.monster = this.monster;
             location.locations = this.locations;
