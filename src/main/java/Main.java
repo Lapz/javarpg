@@ -1,3 +1,4 @@
+import Commands.Move;
 import Item.Inventory;
 import Item.LootItem;
 import Item.Potion;
@@ -25,8 +26,9 @@ public class Main extends ListenerAdapter {
                 .get("DISCORD_TOKEN");
 
         builder.setToken(token);
+        builder.addEventListener(new Move("move","m"));
         builder.addEventListener(new Main());
-        builder.buildAsync();
+        builder.buildBlocking();
 
     }
 
@@ -61,10 +63,6 @@ public class Main extends ListenerAdapter {
         } else if (event.getMessage().getContentRaw().equals("!locations") || event.getMessage().getContentRaw().equals("!l") ) {
 
                 event.getChannel().sendMessage( world.getPlayer(player).getCurrentLocation().embeddedLocationsMessage(world.getLocations())).queue();
-
-        } else if (event.getMessage().getContentRaw().equals("!move") || event.getMessage().getContentRaw().equals("!m") ) {
-
-            event.getChannel().sendMessage("The location ID is needed when moving. You can find it by using the `!location` or `!l` command").queue();
 
         } else if (event.getMessage().getContentRaw().startsWith("!move") || event.getMessage().getContentRaw().startsWith("!m")) {
             String[] segements = event.getMessage().getContentRaw().split(" ");
