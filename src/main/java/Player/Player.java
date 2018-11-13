@@ -1,5 +1,9 @@
+package Player;
+
 import Item.Inventory;
 import Item.Item;
+import Location.Location;
+import Quest.Quest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.KeyDeserializer;
@@ -21,7 +25,7 @@ public class Player {
     private int xp;
     private int level;
     private Inventory inventory;
-    private Map<Integer,Quest> quests;
+    private Map<Integer, Quest> quests;
 
 
     public String getName() {

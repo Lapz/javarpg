@@ -2,24 +2,16 @@
   "L.apz": {
     "name": "L.apz",
     "currentLocation": {
-      "id": 4,
-      "name": "Alchemists hut",
+      "id": 2,
+      "name": "Town square",
       "itemNeededToEnter": null,
-      "avaiableQuest": {
-        "id": 1,
-        "name": "Clear the alchemist\u0027s garden",
-        "description": "Kill rats in the alchemist\u0027s garden and bring back 3 rat tails. You will recevive a healiung potion and 10 gold pieces.",
-        "rewardItem": null,
-        "rewardXP": 20,
-        "rewardGold": 10,
-        "completionItems": {
-          "Item.Item@757942a1": 3
-        }
-      },
+      "avaiableQuest": null,
       "monster": null,
       "locations": [
-        2,
-        5
+        4,
+        3,
+        1,
+        6
       ]
     },
     "hp": 10,

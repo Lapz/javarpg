@@ -1,14 +1,17 @@
 package Commands;
 
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
-public abstract class Command extends ListenerAdapter {
+public abstract class Command {
     String name;
-    String shorthand;
+   
 
-    public Command(String name,String shorthand) {
+    public Command(String name) {
         this.name = name;
-        this.shorthand = shorthand;
     }
 
+    public void onMessageReceived(MessageReceivedEvent event) {
+        return;
+    }
 }

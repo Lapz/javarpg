@@ -1,3 +1,5 @@
+package World;
+
 import Item.Item;
 
 import java.io.BufferedWriter;
@@ -12,6 +14,10 @@ import java.util.Map;
 import Item.Weapon;
 import Item.Potion;
 import Item.LootItem;
+import Monster.Monster;
+import Quest.Quest;
+import Location.Location;
+import Player.Player;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationContext;
@@ -30,7 +36,7 @@ public class World {
 
     public Map<Integer,Quest> quests;
     public Map<Integer,Location> locations;
-    public Map<Integer,Monster> monsters;
+    public Map<Integer, Monster> monsters;
     public Map<Integer, Item> items;
     public Map<String,Player> players;
 

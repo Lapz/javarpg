@@ -1,4 +1,9 @@
+package Location;
+
 import Item.Item;
+
+import Monster.Monster;
+import Quest.Quest;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 

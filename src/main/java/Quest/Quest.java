@@ -1,3 +1,5 @@
+package Quest;
+
 import Item.Item;
 
 import java.util.HashMap;

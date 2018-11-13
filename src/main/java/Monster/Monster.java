@@ -1,3 +1,5 @@
+package Monster;
+
 import Item.LootItem;
 
 import java.util.ArrayList;
